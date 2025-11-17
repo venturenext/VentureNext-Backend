@@ -12,6 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasTable('perks')) {
+            return;
+        }
+
         Schema::create('perks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
@@ -60,7 +64,9 @@ return new class extends Migration
         });
 
         // Add full-text search index for PostgreSQL
-        DB::statement("CREATE INDEX perks_search_idx ON perks USING GIN(to_tsvector('english', title || ' ' || description))");
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement("CREATE INDEX perks_search_idx ON perks USING GIN(to_tsvector('english', title || ' ' || description))");
+        }
     }
 
     /**
