@@ -1,0 +1,556 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PerkPal API",
+    "description": "PerkPal REST API Documentation\n\n## Authentication\nAdmin endpoints require Bearer token authentication using Laravel Sanctum.\n\nGet token by calling POST /api/v1/auth/login\n\nThen include in header: `Authorization: Bearer {your-token}`",
+    "version": "1.0.0",
+    "contact": {
+      "name": "PerkPal API Support",
+      "email": "hello@perkpal.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1",
+      "description": "Local development server"
+    }
+  ],
+  "tags": [
+    { "name": "Perks", "description": "Perk operations" },
+    { "name": "Categories", "description": "Category operations" },
+    { "name": "Static Pages", "description": "Static page operations" },
+    { "name": "Journal", "description": "Journal articles" },
+    { "name": "Settings", "description": "Site settings" },
+    { "name": "Leads", "description": "Lead form submissions" },
+    { "name": "Authentication", "description": "User authentication" },
+    { "name": "Admin - Dashboard", "description": "Admin dashboard" },
+    { "name": "Admin - Perks", "description": "Admin perk management" },
+    { "name": "Admin - Categories", "description": "Admin category management" },
+    { "name": "Admin - Leads", "description": "Admin lead management" }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "JournalPost": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "title": { "type": "string" },
+          "slug": { "type": "string" },
+          "excerpt": { "type": "string" },
+          "content": { "type": "string" },
+          "cover_image": { "type": "string", "nullable": true },
+          "og_image": { "type": "string", "nullable": true },
+          "category": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "reading_time": { "type": "integer" },
+          "published_at": { "type": "string", "format": "date-time", "nullable": true },
+          "created_at": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "Perk": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "title": { "type": "string", "example": "AWS Credits - $1,000 Free" },
+          "slug": { "type": "string", "example": "aws-credits-1000-free" },
+          "short_description": { "type": "string" },
+          "partner_name": { "type": "string", "example": "Amazon Web Services" },
+          "partner_logo": { "type": "string", "nullable": true },
+          "redeem_type": { "type": "string", "enum": ["external_link", "coupon_code", "lead_form"] },
+          "is_featured": { "type": "boolean" },
+          "is_valid": { "type": "boolean" },
+          "published_at": { "type": "string", "format": "date-time" }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "name": { "type": "string" },
+          "slug": { "type": "string" },
+          "description": { "type": "string" },
+          "icon": { "type": "string" },
+          "is_active": { "type": "boolean" },
+          "perks_count": { "type": "integer" }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "message": { "type": "string" },
+          "errors": { "type": "object" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/journal": {
+      "get": {
+        "tags": ["Journal"],
+        "summary": "List journal posts",
+        "parameters": [
+          { "name": "category", "in": "query", "schema": { "type": "string" }, "description": "Filter by category" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/JournalPost" } },
+                    "categories": { "type": "array", "items": { "type": "string" } },
+                    "current": { "type": "object", "properties": { "category": { "type": "string" } } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/journal/{slug}": {
+      "get": {
+        "tags": ["Journal"],
+        "summary": "Get journal post by slug",
+        "parameters": [
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Successful response" },
+          "404": { "description": "Not found" }
+        }
+      }
+    },
+    "/perks": {
+      "get": {
+        "tags": ["Perks"],
+        "summary": "List all perks",
+        "description": "Get paginated list of perks with optional filters",
+        "parameters": [
+          { "name": "category", "in": "query", "description": "Filter by category slug", "schema": { "type": "string" } },
+          { "name": "subcategory_id", "in": "query", "description": "Filter by subcategory ID", "schema": { "type": "integer" } },
+          { "name": "search", "in": "query", "description": "Full-text search", "schema": { "type": "string" } },
+          { "name": "featured", "in": "query", "description": "Filter featured perks", "schema": { "type": "string", "enum": ["true", "false"] } },
+          { "name": "sort_by", "in": "query", "description": "Sort field", "schema": { "type": "string", "enum": ["published_at", "popular", "newest"] } },
+          { "name": "per_page", "in": "query", "description": "Items per page", "schema": { "type": "integer", "default": 12 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Perk" } },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "current_page": { "type": "integer" },
+                        "last_page": { "type": "integer" },
+                        "per_page": { "type": "integer" },
+                        "total": { "type": "integer" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/perks/{slug}": {
+      "get": {
+        "tags": ["Perks"],
+        "summary": "Get perk by slug",
+        "parameters": [
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Successful response" },
+          "404": { "description": "Perk not found" }
+        }
+      }
+    },
+    "/perks/{slug}/view": {
+      "post": {
+        "tags": ["Perks"],
+        "summary": "Increment perk view count",
+        "parameters": [
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "View counted" }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "List all categories",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Category" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{slug}": {
+      "get": {
+        "tags": ["Categories"],
+        "summary": "Get category by slug",
+        "parameters": [
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Successful response" }
+        }
+      }
+    },
+    "/pages": {
+      "get": {
+        "tags": ["Static Pages"],
+        "summary": "List all static pages",
+        "responses": {
+          "200": { "description": "Successful response" }
+        }
+      }
+    },
+    "/pages/{slug}": {
+      "get": {
+        "tags": ["Static Pages"],
+        "summary": "Get page by slug",
+        "parameters": [
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Successful response" }
+        }
+      }
+    },
+    "/settings": {
+      "get": {
+        "tags": ["Settings"],
+        "summary": "Get site settings",
+        "responses": {
+          "200": { "description": "Successful response" }
+        }
+      }
+    },
+    "/leads/perk-claim": {
+      "post": {
+        "tags": ["Leads"],
+        "summary": "Submit perk claim form",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["perk_id", "name", "email"],
+                "properties": {
+                  "perk_id": { "type": "integer" },
+                  "name": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "phone": { "type": "string" },
+                  "company": { "type": "string" },
+                  "message": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Lead created successfully" }
+        }
+      }
+    },
+    "/leads/partner-inquiry": {
+      "post": {
+        "tags": ["Leads"],
+        "summary": "Submit partner inquiry form",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "company"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "phone": { "type": "string" },
+                  "company": { "type": "string" },
+                  "message": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Lead created successfully" }
+        }
+      }
+    },
+    "/leads/contact": {
+      "post": {
+        "tags": ["Leads"],
+        "summary": "Submit contact form",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email", "message"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "subject": { "type": "string" },
+                  "message": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Lead created successfully" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Login user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": { "type": "string", "format": "email", "example": "admin@perkpal.com" },
+                  "password": { "type": "string", "format": "password", "example": "password" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean" },
+                    "message": { "type": "string" },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": { "type": "integer" },
+                            "name": { "type": "string" },
+                            "email": { "type": "string" },
+                            "role": { "type": "string" }
+                          }
+                        },
+                        "token": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Logout user",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Logout successful" }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Get current user",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "User data" }
+        }
+      }
+    },
+    "/admin/dashboard": {
+      "get": {
+        "tags": ["Admin - Dashboard"],
+        "summary": "Get dashboard statistics",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Dashboard data" }
+        }
+      }
+    },
+    "/admin/perks": {
+      "get": {
+        "tags": ["Admin - Perks"],
+        "summary": "List perks (admin)",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "status", "in": "query", "schema": { "type": "string" } },
+          { "name": "category_id", "in": "query", "schema": { "type": "integer" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Perks list" }
+        }
+      },
+      "post": {
+        "tags": ["Admin - Perks"],
+        "summary": "Create new perk",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["category_id", "title", "redeem_type"],
+                "properties": {
+                  "category_id": { "type": "integer" },
+                  "subcategory_id": { "type": "integer" },
+                  "title": { "type": "string" },
+                  "description": { "type": "string" },
+                  "short_description": { "type": "string" },
+                  "partner_name": { "type": "string" },
+                  "redeem_type": { "type": "string", "enum": ["external_link", "coupon_code", "lead_form"] },
+                  "coupon_code": { "type": "string" },
+                  "external_url": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Perk created" }
+        }
+      }
+    },
+    "/admin/perks/{id}": {
+      "get": {
+        "tags": ["Admin - Perks"],
+        "summary": "Get perk by ID",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Perk data" }
+        }
+      },
+      "put": {
+        "tags": ["Admin - Perks"],
+        "summary": "Update perk",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Perk updated" }
+        }
+      },
+      "delete": {
+        "tags": ["Admin - Perks"],
+        "summary": "Delete perk",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Perk deleted" }
+        }
+      }
+    },
+    "/admin/categories": {
+      "get": {
+        "tags": ["Admin - Categories"],
+        "summary": "List categories (admin)",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Categories list" }
+        }
+      },
+      "post": {
+        "tags": ["Admin - Categories"],
+        "summary": "Create category",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "description": { "type": "string" },
+                  "icon": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Category created" }
+        }
+      }
+    },
+    "/admin/leads": {
+      "get": {
+        "tags": ["Admin - Leads"],
+        "summary": "List leads",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "lead_type", "in": "query", "schema": { "type": "string" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Leads list" }
+        }
+      }
+    }
+  }
+}
