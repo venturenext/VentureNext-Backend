@@ -103,7 +103,10 @@ class JournalPostSeeder extends Seeder
                 $data['category_id'] = $category?->id;
             }
 
-            JournalPost::create($data);
+            JournalPost::updateOrCreate(
+                ['title' => $data['title']],
+                $data
+            );
         }
 
         $this->command?->info('Journal posts seeded.');

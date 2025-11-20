@@ -49,11 +49,15 @@ class SubcategorySeeder extends Seeder
             $category = Category::where('name', $subcategoryData['category_name'])->first();
 
             if ($category) {
-                Subcategory::create([
-                    'category_id' => $category->id,
-                    'name' => $subcategoryData['name'],
-                    'is_active' => true,
-                ]);
+                Subcategory::updateOrCreate(
+                    [
+                        'category_id' => $category->id,
+                        'name' => $subcategoryData['name'],
+                    ],
+                    [
+                        'is_active' => true,
+                    ]
+                );
             }
         }
 

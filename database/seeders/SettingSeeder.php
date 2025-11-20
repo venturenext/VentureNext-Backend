@@ -15,7 +15,10 @@ class SettingSeeder extends Seeder
             ['key' => 'enable_search', 'value' => 'true', 'type' => 'boolean', 'group_name' => 'features'],
         ];
         foreach ($settings as $setting) {
-            Setting::create($setting);
+            Setting::updateOrCreate(
+                ['key' => $setting['key']],
+                $setting
+            );
         }
         $this->command->info('✅ Settings seeded successfully!');
     }

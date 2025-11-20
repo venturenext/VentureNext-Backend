@@ -108,24 +108,26 @@ class PerkSeeder extends Seeder
                 continue;
             }
 
-            Perk::create([
-                'category_id' => $category->id,
-                'subcategory_id' => $subcategory->id,
-                'title' => $data['title'],
-                'description' => $data['description'],
-                'short_description' => $data['short_description'] ?? null,
-                'partner_name' => $data['partner_name'],
-                'partner_url' => $data['partner_url'] ?? null,
-                'redeem_type' => $data['redeem_type'],
-                'coupon_code' => $data['coupon_code'] ?? null,
-                'external_url' => $data['external_url'] ?? null,
-                'location' => $data['location'] ?? 'global',
-                'valid_until' => $data['valid_until'] ?? null,
-                'is_featured' => $data['is_featured'] ?? false,
-                'is_active' => true,
-                'status' => $data['status'] ?? 'published',
-                'published_at' => ($data['status'] ?? 'published') === 'published' ? now() : null,
-            ]);
+            Perk::updateOrCreate(
+                ['title' => $data['title']],
+                [
+                    'category_id' => $category->id,
+                    'subcategory_id' => $subcategory->id,
+                    'description' => $data['description'],
+                    'short_description' => $data['short_description'] ?? null,
+                    'partner_name' => $data['partner_name'],
+                    'partner_url' => $data['partner_url'] ?? null,
+                    'redeem_type' => $data['redeem_type'],
+                    'coupon_code' => $data['coupon_code'] ?? null,
+                    'external_url' => $data['external_url'] ?? null,
+                    'location' => $data['location'] ?? 'global',
+                    'valid_until' => $data['valid_until'] ?? null,
+                    'is_featured' => $data['is_featured'] ?? false,
+                    'is_active' => true,
+                    'status' => $data['status'] ?? 'published',
+                    'published_at' => ($data['status'] ?? 'published') === 'published' ? now() : null,
+                ]
+            );
         }
 
         $this->command->info('✅ Sample perks seeded!');
