@@ -116,7 +116,7 @@ class PerkSeeder extends Seeder
                     'description' => $data['description'],
                     'short_description' => $data['short_description'] ?? null,
                     'partner_name' => $data['partner_name'],
-                    'partner_url' => $data['partner_url'] ?? null,
+                    // partner_url removed by migration 2025_11_20_181219
                     'redeem_type' => $data['redeem_type'],
                     'coupon_code' => $data['coupon_code'] ?? null,
                     'external_url' => $data['external_url'] ?? null,
@@ -126,6 +126,7 @@ class PerkSeeder extends Seeder
                     'is_active' => true,
                     'status' => $data['status'] ?? 'published',
                     'published_at' => ($data['status'] ?? 'published') === 'published' ? now() : null,
+                    // display_order removed by migration 2025_11_20_181219
                 ]
             );
         }

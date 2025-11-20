@@ -93,11 +93,11 @@ class JournalPostSeeder extends Seeder
             $coverPath = $this->storeFromUrl($data['cover_url'] ?? null, 'journal/covers');
             $avatarPath = $this->storeFromUrl($data['avatar_url'] ?? null, 'journal/authors');
 
-            unset($data['cover_url'], $data['avatar_url']);
+            unset($data['cover_url'], $data['avatar_url'], $data['category']);
             $data['cover_image'] = $coverPath;
             $data['author_avatar'] = $avatarPath;
-            unset($data['category']);
 
+            // Find category by name and set category_id
             if ($categoryName) {
                 $category = Category::where('name', $categoryName)->first();
                 $data['category_id'] = $category?->id;
