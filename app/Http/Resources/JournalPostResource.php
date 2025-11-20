@@ -37,7 +37,14 @@ class JournalPostResource extends JsonResource
             'cover_image' => $coverUrl,
             // compatibility with frontend expecting og_image
             'og_image' => $coverUrl,
-            'category' => $this->category,
+            'category' => $this->category?->name,
+            'category_id' => $this->category_id,
+            'category_slug' => $this->category?->slug,
+            'category_data' => $this->category ? [
+                'id' => $this->category->id,
+                'name' => $this->category->name,
+                'slug' => $this->category->slug,
+            ] : null,
             'tags' => $this->tags,
             'is_published' => $this->is_published,
             'published_at' => $this->published_at?->toIso8601String(),

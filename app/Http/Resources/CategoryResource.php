@@ -14,6 +14,9 @@ class CategoryResource extends JsonResource
             "icon" => $this->icon,
             "is_active" => $this->is_active,
             "perks_count" => $this->perks()->count(),
+            "subcategories" => SubcategoryResource::collection(
+                $this->whenLoaded('subcategories')
+            ),
         ];
     }
 }

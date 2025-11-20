@@ -17,7 +17,7 @@ class JournalPost extends Model
         'excerpt',
         'content',
         'cover_image',
-        'category',
+        'category_id',
         'tags',
         'author_name',
         'author_avatar',
@@ -36,6 +36,14 @@ class JournalPost extends Model
         return SlugOptions::create()->generateSlugsFrom('title')->saveSlugsTo('slug');
     }
 
+    /**
+     * Relationships
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     // Scopes
     public function scopePublished($query)
     {
@@ -45,7 +53,11 @@ class JournalPost extends Model
 
     public function scopeByCategory($query, $category)
     {
-        if ($category) { $query->where('category', $category); }
+        if ($category) {
+            $query->whereHas('category', function ($q) use ($category) {
+                $q->where('slug', $category);
+            });
+        }
         return $query;
     }
 

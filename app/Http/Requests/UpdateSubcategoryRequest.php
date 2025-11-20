@@ -13,11 +13,7 @@ class UpdateSubcategoryRequest extends FormRequest
             'category_id' => 'sometimes|required|exists:categories,id',
             'name' => 'sometimes|required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:subcategories,slug,' . $id,
-            'description' => 'nullable|string',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
             'is_active' => 'nullable|boolean',
-            'display_order' => 'nullable|integer|min:0',
         ];
     }
 }

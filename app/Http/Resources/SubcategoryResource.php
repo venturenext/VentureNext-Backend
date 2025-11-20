@@ -19,9 +19,8 @@ class SubcategoryResource extends JsonResource
             'category_id' => $this->category_id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'description' => $this->description,
             'is_active' => $this->is_active,
-            'display_order' => $this->display_order,
+            'perks_count' => $this->when(isset($this->perks_count), $this->perks_count),
             'category' => $this->when($this->relationLoaded('category'), function () {
                 return [
                     'id' => $this->category?->id,

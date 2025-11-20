@@ -15,19 +15,19 @@ class PerkController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Perk::with(['category', 'subcategory', 'statistics']);
+        $query = Perk::with(['category', 'subcategory', 'statistics', 'locationOption']);
 
-        // Filter by status
+
         if ($request->has('status')) {
             $query->where('status', $request->status);
         }
 
-        // Filter by category
+
         if ($request->has('category_id')) {
             $query->where('category_id', $request->category_id);
         }
 
-        // Search
+
         if ($request->has('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -55,20 +55,20 @@ class PerkController extends Controller
     {
         $data = $request->validated();
 
-        // Handle file uploads
+
         if ($request->hasFile('partner_logo')) {
             $data['partner_logo'] = $request->file('partner_logo')->store('perks/logos', 'public');
         }
 
-        // Create perk
+
         $perk = Perk::create($data);
 
-        // Handle media banner upload
+
         if ($request->hasFile('media_banner')) {
             $file = $request->file('media_banner');
             $bannerPath = $file->store('perks/banners', 'public');
 
-            // Create banner record
+
             $perk->media()->create([
                 'media_type' => 'banner',
                 'file_path' => $bannerPath,
@@ -78,7 +78,7 @@ class PerkController extends Controller
             ]);
         }
 
-        // Handle media gallery upload
+
         if ($request->hasFile('media_gallery')) {
             foreach ($request->file('media_gallery') as $index => $file) {
                 $galleryPath = $file->store('perks/gallery', 'public');
@@ -94,7 +94,7 @@ class PerkController extends Controller
             }
         }
 
-        // Create or Update SEO if provided
+
         if ($request->has('meta_title') || $request->has('meta_description') || $request->has('og_title')) {
             $seoData = [
                 'meta_title' => $request->meta_title,
@@ -107,10 +107,9 @@ class PerkController extends Controller
                 'keywords' => $request->keywords,
             ];
 
-            // Handle OG image upload
+
             if ($request->hasFile('og_image')) {
-                $ogImagePath = $request->file('og_image')->store('perks/og-images', 'public');
-                $seoData['og_image'] = Storage::url($ogImagePath);
+                $seoData['og_image'] = $request->file('og_image')->store('perks/og-images', 'public');
             }
 
             $perk->seo()->updateOrCreate(
@@ -122,7 +121,7 @@ class PerkController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Perk created successfully',
-            'data' => new PerkDetailResource($perk->load(['category', 'subcategory', 'seo', 'statistics', 'media']))
+            'data' => new PerkDetailResource($perk->load(['category', 'subcategory', 'seo', 'statistics', 'media', 'locationOption']))
         ], 201);
     }
 
@@ -142,30 +141,30 @@ class PerkController extends Controller
         $perk = Perk::findOrFail($id);
         $data = $request->validated();
 
-        // Handle file uploads
+
         if ($request->hasFile('partner_logo')) {
-            // Delete old logo
             if ($perk->partner_logo) {
                 Storage::disk('public')->delete($perk->partner_logo);
             }
             $data['partner_logo'] = $request->file('partner_logo')->store('perks/logos', 'public');
+        } else {
+            // Jangan update partner_logo jika tidak ada file baru
+            unset($data['partner_logo']);
         }
 
         $perk->update($data);
 
-        // Handle media banner upload
+
         if ($request->hasFile('media_banner')) {
             $file = $request->file('media_banner');
             $bannerPath = $file->store('perks/banners', 'public');
 
-            // Delete old banner if exists
             $oldBanner = $perk->media()->where('media_type', 'banner')->first();
             if ($oldBanner) {
                 Storage::disk('public')->delete($oldBanner->file_path);
                 $oldBanner->delete();
             }
 
-            // Create new banner record
             $perk->media()->create([
                 'media_type' => 'banner',
                 'file_path' => $bannerPath,
@@ -175,7 +174,6 @@ class PerkController extends Controller
             ]);
         }
 
-        // Handle media gallery upload
         if ($request->hasFile('media_gallery')) {
             foreach ($request->file('media_gallery') as $index => $file) {
                 $galleryPath = $file->store('perks/gallery', 'public');
@@ -191,7 +189,6 @@ class PerkController extends Controller
             }
         }
 
-        // Create or Update SEO if provided
         if ($request->has('meta_title') || $request->has('meta_description') || $request->has('og_title')) {
             $seoData = [
                 'meta_title' => $request->meta_title,
@@ -204,10 +201,13 @@ class PerkController extends Controller
                 'keywords' => $request->keywords,
             ];
 
-            // Handle OG image upload
             if ($request->hasFile('og_image')) {
-                $ogImagePath = $request->file('og_image')->store('perks/og-images', 'public');
-                $seoData['og_image'] = Storage::url($ogImagePath);
+                // Hapus OG image lama jika ada
+                $oldSeo = $perk->seo;
+                if ($oldSeo && $oldSeo->og_image) {
+                    Storage::disk('public')->delete($oldSeo->og_image);
+                }
+                $seoData['og_image'] = $request->file('og_image')->store('perks/og-images', 'public');
             }
 
             $perk->seo()->updateOrCreate(
@@ -219,7 +219,7 @@ class PerkController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Perk updated successfully',
-            'data' => new PerkDetailResource($perk->load(['category', 'subcategory', 'seo', 'statistics', 'media']))
+            'data' => new PerkDetailResource($perk->load(['category', 'subcategory', 'seo', 'statistics', 'media', 'locationOption']))
         ]);
     }
 
@@ -227,7 +227,6 @@ class PerkController extends Controller
     {
         $perk = Perk::findOrFail($id);
 
-        // Delete associated files
         if ($perk->partner_logo) {
             Storage::disk('public')->delete($perk->partner_logo);
         }

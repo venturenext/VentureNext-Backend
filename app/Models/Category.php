@@ -42,12 +42,17 @@ class Category extends Model
      */
     public function subcategories()
     {
-        return $this->hasMany(Subcategory::class)->orderBy('display_order');
+        return $this->hasMany(Subcategory::class)->orderBy('name');
     }
 
     public function perks()
     {
         return $this->hasMany(Perk::class);
+    }
+
+    public function journalPosts()
+    {
+        return $this->hasMany(JournalPost::class);
     }
 
     /**
@@ -66,7 +71,7 @@ class Category extends Model
     public function scopeWithActiveSubcategories($query)
     {
         return $query->with(['subcategories' => function ($q) {
-            $q->where('is_active', true);
+            $q->where('is_active', true)->orderBy('name');
         }]);
     }
 

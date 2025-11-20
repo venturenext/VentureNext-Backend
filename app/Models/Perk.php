@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use App\Models\Location;
 
 class Perk extends Model
 {
@@ -20,7 +21,6 @@ class Perk extends Model
         'short_description',
         'partner_name',
         'partner_logo',
-        'partner_url',
         'redeem_type',
         'coupon_code',
         'external_url',
@@ -30,7 +30,6 @@ class Perk extends Model
         'is_featured',
         'is_active',
         'status',
-        'display_order',
         'published_at',
     ];
 
@@ -40,7 +39,6 @@ class Perk extends Model
         'valid_from' => 'date',
         'valid_until' => 'date',
         'published_at' => 'datetime',
-        'display_order' => 'integer',
     ];
 
     protected $appends = ['is_valid', 'is_expired'];
@@ -71,6 +69,11 @@ class Perk extends Model
     public function seo()
     {
         return $this->hasOne(PerkSeo::class);
+    }
+
+    public function locationOption()
+    {
+        return $this->belongsTo(Location::class, 'location', 'slug');
     }
 
     public function statistics()

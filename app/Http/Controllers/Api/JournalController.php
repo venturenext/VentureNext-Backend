@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\JournalPostResource;
+use App\Models\Category;
 use App\Models\JournalPost;
 
 class JournalController extends Controller
@@ -13,20 +14,20 @@ class JournalController extends Controller
         $category = request('category', '');
         $perPage = (int) request('per_page', 9);
 
-        $query = JournalPost::published()->byCategory($category)
+        $query = JournalPost::with('category')
+            ->published()
+            ->byCategory($category)
             ->orderBy('published_at', 'desc')
             ->orderBy('created_at', 'desc');
 
         $paginator = $query->paginate($perPage);
 
         // Distinct list of categories for filter pills
-        $categories = JournalPost::published()
-            ->select('category')
-            ->whereNotNull('category')
-            ->distinct()
-            ->orderBy('category')
-            ->pluck('category')
-            ->values();
+        $categories = Category::whereHas('journalPosts', function ($q) {
+                $q->published();
+            })
+            ->orderBy('name')
+            ->get(['id', 'name', 'slug']);
 
         return response()->json([
             'success' => true,
@@ -44,7 +45,7 @@ class JournalController extends Controller
 
     public function show(string $slug)
     {
-        $post = JournalPost::published()->where('slug', $slug)->firstOrFail();
+        $post = JournalPost::with('category')->published()->where('slug', $slug)->firstOrFail();
 
         return response()->json([
             'success' => true,

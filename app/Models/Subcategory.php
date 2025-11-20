@@ -15,16 +15,11 @@ class Subcategory extends Model
         'category_id',
         'name',
         'slug',
-        'description',
-        'meta_title',
-        'meta_description',
         'is_active',
-        'display_order',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
-        'display_order' => 'integer',
     ];
 
     /**
@@ -56,11 +51,6 @@ class Subcategory extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('display_order');
     }
 
     public function scopeByCategory($query, $categoryId)

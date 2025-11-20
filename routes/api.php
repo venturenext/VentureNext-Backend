@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\PerkController;
 use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\StaticPageController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Api\Admin\DashboardController;
 use App\Http\Controllers\Api\Admin\InboxController;
 use App\Http\Controllers\Api\Admin\JournalController as AdminJournalController;
 use App\Http\Controllers\Api\Admin\LeadController as AdminLeadController;
+use App\Http\Controllers\Api\Admin\LocationController as AdminLocationController;
 use App\Http\Controllers\Api\Admin\PerkController as AdminPerkController;
 use App\Http\Controllers\Api\Admin\SettingController as AdminSettingController;
 use App\Http\Controllers\Api\Admin\StaticPageController as AdminStaticPageController;
@@ -39,6 +41,9 @@ Route::prefix('v1')->group(function () {
     // Categories
     Route::get('/categories', [CategoryController::class, 'index']);
     Route::get('/categories/{slug}', [CategoryController::class, 'show']);
+    
+    // Locations
+    Route::get('/locations', [LocationController::class, 'index']);
     
     // Static Pages
     Route::get('/pages', [StaticPageController::class, 'index']);
@@ -87,6 +92,7 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum'])->group(function () {
     // Categories Management
     Route::apiResource('categories', AdminCategoryController::class);
     Route::apiResource('subcategories', SubcategoryController::class);
+    Route::apiResource('locations', AdminLocationController::class);
     
     // Leads Management
     Route::get('/leads', [AdminLeadController::class, 'index']);

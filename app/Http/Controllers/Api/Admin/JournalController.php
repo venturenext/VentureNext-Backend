@@ -15,16 +15,25 @@ class JournalController extends Controller
     public function index(Request $request)
     {
         $query = JournalPost::query()
+            ->with('category')
             ->orderBy('published_at', 'desc')
             ->orderBy('created_at', 'desc');
 
-        if ($request->has('search')) {
-            $query->where('title', 'ILIKE', "%{$request->search}%")
-                ->orWhere('excerpt', 'ILIKE', "%{$request->search}%");
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'ILIKE', "%{$search}%")
+                    ->orWhere('excerpt', 'ILIKE', "%{$search}%");
+            });
         }
 
-        if ($request->has('category')) {
-            $query->where('category', $request->category);
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        } elseif ($request->filled('category')) {
+            $value = $request->input('category');
+            $query->whereHas('category', function ($q) use ($value) {
+                $q->where('slug', $value)->orWhere('name', $value);
+            });
         }
 
         $perPage = $request->input('per_page', 20);
@@ -53,6 +62,7 @@ class JournalController extends Controller
             $data['author_avatar'] = $request->file('author_avatar')->store('journal/avatars', 'public');
         }
         $post = JournalPost::create($data);
+        $post->load('category');
 
         return response()->json([
             'success' => true,
@@ -63,7 +73,7 @@ class JournalController extends Controller
 
     public function show($id)
     {
-        $post = JournalPost::findOrFail($id);
+        $post = JournalPost::with('category')->findOrFail($id);
         return response()->json([
             'success' => true,
             'data' => new JournalPostResource($post)
@@ -74,20 +84,29 @@ class JournalController extends Controller
     {
         $post = JournalPost::findOrFail($id);
         $data = $request->validated();
+
+        // Handle tags
         $data['tags'] = $this->normalizeTags($request->input('tags'));
+
+        // Handle cover image
         if ($request->hasFile('cover_image')) {
             if ($post->cover_image) {
                 Storage::disk('public')->delete($post->cover_image);
             }
             $data['cover_image'] = $request->file('cover_image')->store('journal/covers', 'public');
         }
+
+        // Handle author avatar
         if ($request->hasFile('author_avatar')) {
             if ($post->author_avatar) {
                 Storage::disk('public')->delete($post->author_avatar);
             }
             $data['author_avatar'] = $request->file('author_avatar')->store('journal/avatars', 'public');
         }
+
+        // Update the post with validated data
         $post->update($data);
+        $post->load('category');
 
         return response()->json([
             'success' => true,

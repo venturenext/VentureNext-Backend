@@ -11,11 +11,7 @@ class StoreSubcategoryRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:subcategories,slug',
-            'description' => 'nullable|string',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
             'is_active' => 'nullable|boolean',
-            'display_order' => 'nullable|integer|min:0',
         ];
     }
 }

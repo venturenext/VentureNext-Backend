@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Category;
 use App\Models\JournalPost;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -88,12 +89,19 @@ class JournalPostSeeder extends Seeder
         ];
 
         foreach ($samples as $data) {
+            $categoryName = $data['category'] ?? null;
             $coverPath = $this->storeFromUrl($data['cover_url'] ?? null, 'journal/covers');
             $avatarPath = $this->storeFromUrl($data['avatar_url'] ?? null, 'journal/authors');
 
             unset($data['cover_url'], $data['avatar_url']);
             $data['cover_image'] = $coverPath;
             $data['author_avatar'] = $avatarPath;
+            unset($data['category']);
+
+            if ($categoryName) {
+                $category = Category::where('name', $categoryName)->first();
+                $data['category_id'] = $category?->id;
+            }
 
             JournalPost::create($data);
         }

@@ -15,6 +15,7 @@ class PerkResource extends JsonResource
             "partner_logo" => $this->partner_logo ? asset("storage/" . $this->partner_logo) : null,
             "redeem_type" => $this->redeem_type,
             "location" => $this->location,
+            "location_label" => $this->locationOption?->name,
             "valid_from" => $this->valid_from?->format("Y-m-d"),
             "valid_until" => $this->valid_until?->format("Y-m-d"),
             "is_featured" => $this->is_featured,
@@ -36,6 +37,11 @@ class PerkResource extends JsonResource
                 "view_count" => $this->statistics->view_count,
                 "claim_count" => $this->statistics->claim_count,
             ] : null,
+            "media" => [
+                "logo" => $this->partner_logo ? asset("storage/" . $this->partner_logo) : null,
+                "banner" => $this->media->where('media_type', 'banner')->first()?->getFullUrl(),
+                "gallery" => $this->media->where('media_type', 'gallery')->sortBy('display_order')->map(fn($m) => $m->getFullUrl())->values()->toArray(),
+            ],
             "published_at" => $this->published_at?->toIso8601String(),
         ];
     }

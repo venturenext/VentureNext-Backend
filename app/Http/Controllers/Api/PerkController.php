@@ -15,11 +15,10 @@ class PerkController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Perk::with(['category', 'subcategory', 'statistics'])
+        $query = Perk::with(['category', 'subcategory', 'statistics', 'locationOption'])
             ->active()
             ->published();
 
-        // Filters
         $query->byCategory($request->input('category'))
               ->bySubcategory($request->input('subcategory'))
               ->byLocation($request->input('location'))
@@ -29,7 +28,6 @@ class PerkController extends Controller
             $query->featured();
         }
 
-        // Sorting
         $sort = $request->input('sort', 'latest');
         if ($sort === 'popular') {
             $query->popular();
@@ -59,7 +57,7 @@ class PerkController extends Controller
      */
     public function show(string $slug)
     {
-        $perk = Perk::with(['category', 'subcategory', 'seo', 'statistics', 'media'])
+        $perk = Perk::with(['category', 'subcategory', 'seo', 'statistics', 'media', 'locationOption'])
             ->active()
             ->published()
             ->where('slug', $slug)
@@ -85,4 +83,3 @@ class PerkController extends Controller
         ]);
     }
 }
-
