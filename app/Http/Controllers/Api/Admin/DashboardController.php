@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Lead;
 use App\Models\Perk;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -19,6 +20,7 @@ class DashboardController extends Controller
             'active_perks' => Perk::where('is_active', true)->count(),
             'featured_perks' => Perk::where('is_featured', true)->count(),
             'total_categories' => Category::count(),
+            'total_subcategories' => Subcategory::count(),
             'total_leads' => Lead::count(),
             'recent_leads' => Lead::where('created_at', '>=', now()->subDays(7))->count(),
         ];
