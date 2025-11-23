@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActivityLog;
 use App\Models\Category;
 use App\Models\Lead;
 use App\Models\Perk;
@@ -26,18 +27,19 @@ class DashboardController extends Controller
         ];
 
 
-        $recent_leads = Lead::with('perk')
+        // Get recent activity logs (admin actions)
+        $recent_activities = ActivityLog::with('user')
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get()
-            ->map(function ($lead) {
+            ->map(function ($log) {
                 return [
-                    'id' => $lead->id,
-                    'lead_type' => $lead->lead_type,
-                    'name' => $lead->name,
-                    'email' => $lead->email,
-                    'perk_title' => $lead->perk?->title,
-                    'created_at' => $lead->created_at,
+                    'id' => $log->id,
+                    'action' => $log->action,
+                    'model_type' => $log->model_type,
+                    'model_name' => $log->model_name,
+                    'user_name' => $log->user?->name ?? 'System',
+                    'created_at' => $log->created_at,
                 ];
             });
 
@@ -70,7 +72,7 @@ class DashboardController extends Controller
             'success' => true,
             'data' => [
                 'stats' => $stats,
-                'recent_leads' => $recent_leads,
+                'recent_activities' => $recent_activities,
                 'top_perks' => $top_perks_by_views,
                 'leads_by_type' => $leads_by_type,
             ]

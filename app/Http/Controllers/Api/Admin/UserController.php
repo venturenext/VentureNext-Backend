@@ -18,7 +18,6 @@ class UserController extends Controller
         if ($request->has('search')) {
             $query->search($request->search);
         }
-        $query->where('role', 'content_editor');
 
         $perPage = $request->input('per_page', 20);
         $users = $query->orderBy('created_at', 'desc')->paginate($perPage);
@@ -38,7 +37,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
-        $data['role'] = 'content_editor';
+        $data['role'] = 'super_admin';
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
 
@@ -52,7 +51,6 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $this->ensureContentEditor($user);
         return response()->json([
             'success' => true,
             'data' => new UserResource($user)
@@ -62,14 +60,13 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        $this->ensureContentEditor($user);
         $data = $request->validated();
         if (isset($data['password']) && $data['password']) {
             $data['password'] = Hash::make($data['password']);
         } else {
             unset($data['password']);
         }
-        $data['role'] = 'content_editor';
+        $data['role'] = 'super_admin';
         $user->update($data);
 
         return response()->json([
@@ -82,18 +79,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $this->ensureContentEditor($user);
         $user->delete();
         return response()->json([
             'success' => true,
             'message' => 'User deleted successfully'
         ]);
-    }
-
-    private function ensureContentEditor(User $user)
-    {
-        if ($user->role !== 'content_editor') {
-            abort(403, 'Only content editors can be managed here.');
-        }
     }
 }

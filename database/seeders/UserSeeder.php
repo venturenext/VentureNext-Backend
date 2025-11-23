@@ -23,25 +23,6 @@ class UserSeeder extends Seeder
             ]
         );
 
-        // Create Content Editors
-        User::updateOrCreate(
-            ['email' => 'editor@perkpal.com'],
-            [
-                'name' => 'Content Editor',
-                'password' => Hash::make('password'),
-                'role' => 'content_editor',
-            ]
-        );
-
-        User::updateOrCreate(
-            ['email' => 'john@perkpal.com'],
-            [
-                'name' => 'John Editor',
-                'password' => Hash::make('password'),
-                'role' => 'content_editor',
-            ]
-        );
-
         $this->command->info('✅ Users seeded successfully!');
     }
 }

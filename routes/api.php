@@ -22,6 +22,8 @@ use App\Http\Controllers\Api\Admin\StaticPageController as AdminStaticPageContro
 use App\Http\Controllers\Api\Admin\SubcategoryController;
 use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\Admin\PageContentController as AdminPageContentController;
+use App\Http\Controllers\Api\Admin\AnalyticsController;
+use App\Http\Controllers\Api\TrackingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,7 +69,13 @@ Route::prefix('v1')->group(function () {
     Route::post('/leads/perk-claim', [LeadController::class, 'perkClaim']);
     Route::post('/leads/partner-inquiry', [LeadController::class, 'partnerInquiry']);
     Route::post('/leads/contact', [LeadController::class, 'contact']);
-    
+
+    // Analytics Tracking
+    Route::post('/track/impression', [TrackingController::class, 'trackImpression']);
+    Route::post('/track/click', [TrackingController::class, 'trackClick']);
+    Route::post('/track/form-submission', [TrackingController::class, 'trackFormSubmission']);
+    Route::post('/track/affiliate-click', [TrackingController::class, 'trackAffiliateClick']);
+
     // Auth
     Route::post('/auth/login', [AuthController::class, 'login']);
     
@@ -129,6 +137,10 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum'])->group(function () {
     Route::post('/page-content/upload-image', [AdminPageContentController::class, 'uploadImage']);
     Route::delete('/page-content/{id}', [AdminPageContentController::class, 'destroy']);
 
+    // Analytics
+    Route::get('/analytics/dashboard', [AnalyticsController::class, 'getDashboardStats']);
+    Route::get('/analytics/perk/{perkId}', [AnalyticsController::class, 'getPerformanceByPerk']);
+
     // User Management (Super Admin only)
-    Route::apiResource('users', AdminUserController::class);
+    // Route::apiResource('users', AdminUserController::class);
 });

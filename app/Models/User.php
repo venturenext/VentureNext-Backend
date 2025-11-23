@@ -57,27 +57,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if user is content editor
-     */
-    public function isContentEditor(): bool
-    {
-        return $this->role === 'content_editor';
-    }
-
-    /**
      * Scope for super admins
      */
     public function scopeSuperAdmins($query)
     {
         return $query->where('role', 'super_admin');
-    }
-
-    /**
-     * Scope for content editors
-     */
-    public function scopeContentEditors($query)
-    {
-        return $query->where('role', 'content_editor');
     }
 
     /**
@@ -105,8 +89,7 @@ class User extends Authenticatable
     public static function roles(): array
     {
         return [
-            'super_admin' => 'Super Admin',
-            'content_editor' => 'Content Editor'
+            'super_admin' => 'Super Admin'
         ];
     }
 
