@@ -11,7 +11,7 @@ class PartnerInquiryRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'company' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:50',
+            'phone' => 'nullable|numeric',
             'message' => 'required|string|max:2000',
             'company_website' => 'nullable|url|max:500',
             'contact' => 'nullable|string|max:100',
