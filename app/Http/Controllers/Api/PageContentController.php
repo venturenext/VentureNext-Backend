@@ -7,9 +7,7 @@ use App\Models\PageContent;
 
 class PageContentController extends Controller
 {
-    /**
-     * Get content for a specific page (public endpoint)
-     */
+   
     public function show($pageName)
     {
         $contents = PageContent::getPageSections($pageName, true);
@@ -21,9 +19,7 @@ class PageContentController extends Controller
         ]);
     }
 
-    /**
-     * Get specific section by key (public endpoint)
-     */
+
     public function getSection($sectionKey)
     {
         $section = PageContent::where('section_key', $sectionKey)

@@ -22,7 +22,7 @@ class JournalController extends Controller
 
         $paginator = $query->paginate($perPage);
 
-        // Distinct list of categories for filter pills
+       
         $categories = Category::whereHas('journalPosts', function ($q) {
                 $q->published();
             })

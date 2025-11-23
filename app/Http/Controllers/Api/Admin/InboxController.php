@@ -9,24 +9,22 @@ use Illuminate\Http\Request;
 
 class InboxController extends Controller
 {
-    /**
-     * List inbox messages
-     */
+
     public function index(Request $request)
     {
         $query = Inbox::query();
 
-        // Filter by read status
+
         if ($request->has('is_read')) {
             $query->where('is_read', $request->boolean('is_read'));
         }
 
-        // Search
+
         if ($request->has('search')) {
             $query->search($request->search);
         }
 
-        // Date range filter
+
         if ($request->has('date_from')) {
             $query->whereDate('created_at', '>=', $request->date_from);
         }
@@ -50,9 +48,7 @@ class InboxController extends Controller
         ]);
     }
 
-    /**
-     * Show single inbox message
-     */
+
     public function show($id)
     {
         $message = Inbox::findOrFail($id);
@@ -63,9 +59,7 @@ class InboxController extends Controller
         ]);
     }
 
-    /**
-     * Mark message as read
-     */
+
     public function markAsRead($id)
     {
         $message = Inbox::findOrFail($id);
@@ -78,9 +72,7 @@ class InboxController extends Controller
         ]);
     }
 
-    /**
-     * Mark message as unread
-     */
+
     public function markAsUnread($id)
     {
         $message = Inbox::findOrFail($id);
@@ -93,9 +85,7 @@ class InboxController extends Controller
         ]);
     }
 
-    /**
-     * Delete inbox message
-     */
+
     public function destroy($id)
     {
         $message = Inbox::findOrFail($id);
@@ -107,9 +97,7 @@ class InboxController extends Controller
         ]);
     }
 
-    /**
-     * Bulk mark as read
-     */
+
     public function bulkMarkAsRead(Request $request)
     {
         $request->validate([
@@ -128,9 +116,7 @@ class InboxController extends Controller
         ]);
     }
 
-    /**
-     * Bulk delete
-     */
+   
     public function bulkDelete(Request $request)
     {
         $request->validate([

@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 
 class PerkController extends Controller
 {
-    /**
-     * Public list of perks with filters/sorting.
-     */
+
     public function index(Request $request)
     {
         $query = Perk::with(['category', 'subcategory', 'statistics', 'locationOption'])
@@ -52,9 +50,7 @@ class PerkController extends Controller
         ]);
     }
 
-    /**
-     * Public perk detail by slug.
-     */
+
     public function show(string $slug)
     {
         $perk = Perk::with(['category', 'subcategory', 'seo', 'statistics', 'media', 'locationOption'])
@@ -69,9 +65,7 @@ class PerkController extends Controller
         ]);
     }
 
-    /**
-     * Increment view count by slug (non-auth, non-blocking).
-     */
+   
     public function incrementView(string $slug)
     {
         $perk = Perk::where('slug', $slug)->firstOrFail();

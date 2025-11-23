@@ -8,9 +8,7 @@ use App\Models\StaticPage;
 
 class StaticPageController extends Controller
 {
-    /**
-     * Get list of all active static pages
-     */
+   
     public function index()
     {
         $pages = StaticPage::where('is_active', true)
@@ -23,9 +21,7 @@ class StaticPageController extends Controller
         ]);
     }
 
-    /**
-     * Get single static page by slug
-     */
+
     public function show($slug)
     {
         $page = StaticPage::where('slug', $slug)

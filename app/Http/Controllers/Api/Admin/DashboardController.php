@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Get statistics
+
         $stats = [
             'total_perks' => Perk::count(),
             'active_perks' => Perk::where('is_active', true)->count(),
@@ -25,7 +25,7 @@ class DashboardController extends Controller
             'recent_leads' => Lead::where('created_at', '>=', now()->subDays(7))->count(),
         ];
 
-        // Recent leads
+
         $recent_leads = Lead::with('perk')
             ->orderBy('created_at', 'desc')
             ->limit(5)
@@ -41,7 +41,7 @@ class DashboardController extends Controller
                 ];
             });
 
-        // Top perks by views
+
         $top_perks_by_views = Perk::with(['statistics', 'category'])
             ->whereHas('statistics')
             ->get()
@@ -60,7 +60,7 @@ class DashboardController extends Controller
             })
             ->values();
 
-        // Leads by type
+       
         $leads_by_type = Lead::select('lead_type', DB::raw('count(*) as count'))
             ->groupBy('lead_type')
             ->get()

@@ -80,7 +80,6 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        // Check if category has perks
         if ($category->perks()->count() > 0) {
             return response()->json([
                 'success' => false,

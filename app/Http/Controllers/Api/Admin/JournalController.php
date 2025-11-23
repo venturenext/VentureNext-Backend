@@ -88,10 +88,10 @@ class JournalController extends Controller
         $post = JournalPost::findOrFail($id);
         $data = $request->validated();
 
-        // Handle tags
+
         $data['tags'] = $this->normalizeTags($request->input('tags'));
 
-        // Handle cover image
+
         if ($request->hasFile('cover_image')) {
             if ($post->cover_image) {
                 Storage::disk('public')->delete($post->cover_image);
@@ -106,7 +106,7 @@ class JournalController extends Controller
             $data['og_image'] = $request->file('og_image')->store('journal/og-images', 'public');
         }
 
-        // Handle author avatar
+
         if ($request->hasFile('author_avatar')) {
             if ($post->author_avatar) {
                 Storage::disk('public')->delete($post->author_avatar);
@@ -114,7 +114,7 @@ class JournalController extends Controller
             $data['author_avatar'] = $request->file('author_avatar')->store('journal/avatars', 'public');
         }
 
-        // Update the post with validated data
+      
         $post->update($data);
         $post->load('category');
 

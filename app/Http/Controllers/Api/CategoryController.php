@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Get list of all categories
-     */
+
     public function index()
     {
         $categories = Category::with('subcategories')
@@ -26,9 +24,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Get single category by slug with its perks
-     */
+   
     public function show($slug)
     {
         $category = Category::with(['subcategories', 'perks' => function ($query) {

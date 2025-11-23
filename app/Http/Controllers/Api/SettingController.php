@@ -8,14 +8,12 @@ use App\Models\Setting;
 
 class SettingController extends Controller
 {
-    /**
-     * Get all public settings
-     */
+    
     public function index()
     {
         $settings = Setting::all();
 
-        // Transform to key-value pairs
+
         $settingsData = [];
         foreach ($settings as $setting) {
             $settingsData[$setting->key] = $setting->value;

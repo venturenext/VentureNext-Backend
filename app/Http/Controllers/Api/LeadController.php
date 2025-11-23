@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Log;
 
 class LeadController extends Controller
 {
-    /**
-     * Submit perk claim form
-     */
+
     public function perkClaim(PerkClaimRequest $request)
     {
         $lead = Lead::create([
@@ -38,13 +36,13 @@ class LeadController extends Controller
             ],
         ]);
 
-        // Increment claim count for the perk
+
         if ($lead->perk && $lead->perk->statistics) {
             $lead->perk->statistics->increment('claim_count');
             $lead->perk->statistics->update(['last_claimed_at' => now()]);
         }
 
-        // Send notification email to admin
+
         $this->notifyLeadEmail('Perk Claim Received', [
             "Lead Type: Perk Claim",
             "Perk ID: {$lead->perk_id}",
@@ -54,7 +52,7 @@ class LeadController extends Controller
             "Message: {$lead->message}",
         ]);
 
-        // Send confirmation email to user
+
         try {
             Mail::to($lead->email)->send(new PerkClaimConfirmation($lead));
         } catch (\Throwable $e) {
@@ -74,9 +72,7 @@ class LeadController extends Controller
         ], 201);
     }
 
-    /**
-     * Submit partner inquiry form
-     */
+
     public function partnerInquiry(PartnerInquiryRequest $request)
     {
         $lead = Lead::create([
@@ -122,9 +118,7 @@ class LeadController extends Controller
         ], 201);
     }
 
-    /**
-     * Submit contact form
-     */
+   
     public function contact(ContactFormRequest $request)
     {
         $inbox = Inbox::create([

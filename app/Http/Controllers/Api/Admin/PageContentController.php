@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PageContentController extends Controller
 {
-    /**
-     * Get all page contents grouped by page
-     */
+
     public function index()
     {
         $contents = PageContent::ordered()->get();
@@ -26,9 +24,7 @@ class PageContentController extends Controller
         ]);
     }
 
-    /**
-     * Get content for a specific page
-     */
+
     public function show($pageName)
     {
         $contents = PageContent::getPageSections($pageName, false);
@@ -40,9 +36,7 @@ class PageContentController extends Controller
         ]);
     }
 
-    /**
-     * Get available pages structure
-     */
+
     public function getPages()
     {
         $pages = [
@@ -139,9 +133,7 @@ class PageContentController extends Controller
         ]);
     }
 
-    /**
-     * Update or create a single page content section
-     */
+
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -191,9 +183,7 @@ class PageContentController extends Controller
         ]);
     }
 
-    /**
-     * Bulk update multiple sections
-     */
+
     public function bulkUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -235,9 +225,7 @@ class PageContentController extends Controller
         ]);
     }
 
-    /**
-     * Upload image for page content
-     */
+
     public function uploadImage(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -256,10 +244,10 @@ class PageContentController extends Controller
         $image = $request->file('image');
         $sectionKey = $request->input('section_key');
 
-        // Generate unique filename
+
         $filename = time() . '_' . $sectionKey . '.' . $image->getClientOriginalExtension();
 
-        // Store in public/page-contents directory
+
         $path = $image->storeAs('page-contents', $filename, 'public');
 
         $imageUrl = Storage::url($path);
@@ -274,12 +262,10 @@ class PageContentController extends Controller
         ]);
     }
 
-    /**
-     * Delete a page content section
-     */
+
     public function destroy($id)
     {
-        // Only super admin can delete
+
         if (auth()->user()->role !== 'super_admin') {
             return response()->json([
                 'success' => false,
@@ -296,7 +282,7 @@ class PageContentController extends Controller
             ], 404);
         }
 
-        // Delete associated image if exists
+       
         if ($pageContent->image_url) {
             $path = str_replace('/storage/', '', $pageContent->image_url);
             if (Storage::disk('public')->exists($path)) {

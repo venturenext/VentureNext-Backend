@@ -18,12 +18,10 @@ class SubcategoryController extends Controller
 
         $query = Subcategory::with('category')->withCount('perks');
 
-        // Filter by category
         if ($request->has('category_id')) {
             $query->where('category_id', $request->category_id);
         }
 
-        // Search filter
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
@@ -87,7 +85,7 @@ class SubcategoryController extends Controller
     {
         $subcategory = Subcategory::findOrFail($id);
 
-        // Check if subcategory has perks
+      
         if ($subcategory->perks()->count() > 0) {
             return response()->json([
                 'success' => false,

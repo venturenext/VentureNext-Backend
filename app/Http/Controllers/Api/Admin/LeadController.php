@@ -13,12 +13,12 @@ class LeadController extends Controller
     {
         $query = Lead::with('perk');
 
-        // Filter by lead type
+
         if ($request->has('lead_type')) {
             $query->where('lead_type', $request->lead_type);
         }
 
-        // Search
+
         if ($request->has('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
@@ -28,7 +28,7 @@ class LeadController extends Controller
             });
         }
 
-        // Date range filter
+
         if ($request->has('date_from')) {
             $query->whereDate('created_at', '>=', $request->date_from);
         }
@@ -76,7 +76,7 @@ class LeadController extends Controller
     {
         $query = Lead::with('perk');
 
-        // Apply same filters as index
+
         if ($request->has('lead_type')) {
             $query->where('lead_type', $request->lead_type);
         }
@@ -89,7 +89,6 @@ class LeadController extends Controller
 
         $leads = $query->orderBy('created_at', 'desc')->get();
 
-        // Convert to CSV format
         $csv_data = [];
         $csv_data[] = ['ID', 'Type', 'Name', 'Email', 'Phone', 'Company', 'Perk', 'Created At'];
 

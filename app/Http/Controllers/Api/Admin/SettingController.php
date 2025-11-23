@@ -15,7 +15,6 @@ class SettingController extends Controller
             ->orderBy('key')
             ->get();
 
-        // Group by group_name
         $grouped_settings = $settings->groupBy('group_name');
 
         return response()->json([
