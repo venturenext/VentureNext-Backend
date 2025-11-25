@@ -19,4 +19,4 @@ cmds = [
 ]
 
 [start]
-cmd = "php artisan config:clear && php artisan migrate:fresh --force && php artisan db:seed --force && php artisan storage:link && php -S 0.0.0.0:${PORT:-8080} -t public"
+cmd = "php artisan config:clear && php artisan db:wipe --force && php artisan migrate --force && php artisan db:seed --force && php artisan storage:link && php -S 0.0.0.0:${PORT:-8080} -t public"
