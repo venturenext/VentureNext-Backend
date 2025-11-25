@@ -11,6 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Table already exists from 0001_01_01_000000_create_users_table; skip duplicate creation.
+        if (Schema::hasTable('password_reset_tokens')) {
+            return;
+        }
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token');
