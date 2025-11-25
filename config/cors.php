@@ -17,7 +17,10 @@ return [
         'http://localhost:5173',
         'http://localhost:5174',
         'http://localhost:8080',
+        'https://venturenext.shop',
+        'https://www.venturenext.shop',
         env('FRONTEND_URL'),
+        env('FRONTEND_URL_PROD'),
     ]),
 
     'allowed_origins_patterns' => [],
