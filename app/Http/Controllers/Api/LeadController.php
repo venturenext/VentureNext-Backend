@@ -241,12 +241,19 @@ class LeadController extends Controller
 HTML;
 
         try {
-            // Use queue to prevent blocking and timeout
-            Mail::html($html, function ($message) use ($to, $subject) {
-                $message->to($to)->subject($subject);
-            })->onQueue('emails');
+            // Dispatch email to background queue to avoid blocking the HTTP response
+            // This runs after the response is sent, so SMTP issues won't cause timeouts
+            dispatch(function () use ($html, $to, $subject) {
+                try {
+                    Mail::html($html, function ($message) use ($to, $subject) {
+                        $message->to($to)->subject($subject);
+                    });
+                } catch (\Throwable $e) {
+                    Log::error('Failed to send lead notification email', ['error' => $e->getMessage()]);
+                }
+            })->afterResponse();
         } catch (\Throwable $e) {
-            Log::error('Failed to send lead notification email', ['error' => $e->getMessage()]);
+            Log::error('Failed to queue lead notification email', ['error' => $e->getMessage()]);
         }
     }
 }
