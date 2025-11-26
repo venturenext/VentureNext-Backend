@@ -7,12 +7,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ResetPasswordNotification extends Notification
+class ResetPasswordNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     public $token;
     public $email;
+
+    public $tries = 3;
+    public $timeout = 30;
 
     /**
      * Create a new notification instance.
@@ -21,6 +24,7 @@ class ResetPasswordNotification extends Notification
     {
         $this->token = $token;
         $this->email = $email;
+        $this->onQueue('emails');
     }
 
     /**

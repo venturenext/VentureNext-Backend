@@ -4,14 +4,18 @@ namespace App\Mail;
 
 use App\Models\Lead;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PerkClaimConfirmation extends Mailable
+class PerkClaimConfirmation extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    public $tries = 3;
+    public $timeout = 30;
 
     /**
      * Create a new message instance.
@@ -19,7 +23,7 @@ class PerkClaimConfirmation extends Mailable
     public function __construct(
         public Lead $lead
     ) {
-        //
+        $this->onQueue('emails');
     }
 
     /**

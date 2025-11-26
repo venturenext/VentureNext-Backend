@@ -26,6 +26,7 @@ return [
 
     'resend' => [
         'key' => env('RESEND_KEY'),
+        'api_key' => env('RESEND_API_KEY', env('RESEND_KEY')),
     ],
 
     'slack' => [
