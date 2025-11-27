@@ -21,5 +21,5 @@ cmds = [
 [start]
 cmd = "php artisan config:cache && php artisan migrate --force && php artisan storage:link && php -S 0.0.0.0:${PORT:-8080} -t public"
 
-[cron."*/5 * * * *"]
-command = "php artisan queue:work --queue=emails"
+[cron."* * * * *"]
+command = "cd /app && echo \"[$(date -Iseconds)] cron tick\" >> storage/logs/cron.log 2>&1 && php artisan schedule:run --verbose --no-interaction >> storage/logs/cron.log 2>&1 && php artisan queue:work database --queue=default,emails --stop-when-empty --max-time=50 --tries=3 --timeout=90 --sleep=3 >> storage/logs/cron.log 2>&1"
