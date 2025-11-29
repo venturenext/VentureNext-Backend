@@ -76,7 +76,9 @@ class LeadController extends Controller
     {
         $query = Lead::with('perk');
 
-
+        if ($request->has('search')) {
+            $query->search($request->search);
+        }
         if ($request->has('lead_type')) {
             $query->where('lead_type', $request->lead_type);
         }

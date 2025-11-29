@@ -107,9 +107,9 @@ Route::prefix('v1/admin')->middleware(['auth:sanctum'])->group(function () {
 
     // Leads Management
     Route::get('/leads', [AdminLeadController::class, 'index']);
+    Route::get('/leads/export', [AdminLeadController::class, 'export']);
     Route::get('/leads/{id}', [AdminLeadController::class, 'show']);
     Route::delete('/leads/{id}', [AdminLeadController::class, 'destroy']);
-    Route::get('/leads/export', [AdminLeadController::class, 'export']);
 
     // Inbox Management
     Route::get('/inbox', [InboxController::class, 'index']);
