@@ -31,18 +31,20 @@ class SendLeadNotificationEmail implements ShouldQueue
     public function handle(): void
     {
         try {
-            // Send email via Resend API (uses HTTP, more reliable than SMTP)
-            Mail::mailer('resend')->html($this->html, function ($message) {
+            // Use the configured mailer (default `MAIL_MAILER` → smtp) for outgoing notifications.
+            Mail::html($this->html, function ($message) {
                 $message->to($this->to)->subject($this->subject);
             });
 
-            Log::info('Email sent successfully via Resend', [
+            Log::info('Email sent successfully', [
+                'mailer' => config('mail.default'),
                 'to' => $this->to,
                 'subject' => $this->subject,
             ]);
         } catch (\Throwable $e) {
-            Log::error('Failed to send lead notification email via Resend', [
+            Log::error('Failed to send lead notification email', [
                 'error' => $e->getMessage(),
+                'mailer' => config('mail.default'),
                 'to' => $this->to,
                 'subject' => $this->subject
             ]);
