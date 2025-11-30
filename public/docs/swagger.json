@@ -16,17 +16,102 @@
     }
   ],
   "tags": [
-    { "name": "Perks", "description": "Perk operations" },
-    { "name": "Categories", "description": "Category operations" },
-    { "name": "Static Pages", "description": "Static page operations" },
-    { "name": "Journal", "description": "Journal articles" },
-    { "name": "Settings", "description": "Site settings" },
-    { "name": "Leads", "description": "Lead form submissions" },
-    { "name": "Authentication", "description": "User authentication" },
-    { "name": "Admin - Dashboard", "description": "Admin dashboard" },
-    { "name": "Admin - Perks", "description": "Admin perk management" },
-    { "name": "Admin - Categories", "description": "Admin category management" },
-    { "name": "Admin - Leads", "description": "Admin lead management" }
+    {
+      "name": "Perks",
+      "description": "Perk operations"
+    },
+    {
+      "name": "Categories",
+      "description": "Category operations"
+    },
+    {
+      "name": "Static Pages",
+      "description": "Static page operations"
+    },
+    {
+      "name": "Journal",
+      "description": "Journal articles"
+    },
+    {
+      "name": "Settings",
+      "description": "Site settings"
+    },
+    {
+      "name": "Leads",
+      "description": "Lead form submissions"
+    },
+    {
+      "name": "Authentication",
+      "description": "User authentication"
+    },
+    {
+      "name": "Admin - Dashboard",
+      "description": "Admin dashboard"
+    },
+    {
+      "name": "Admin - Perks",
+      "description": "Admin perk management"
+    },
+    {
+      "name": "Admin - Categories",
+      "description": "Admin category management"
+    },
+    {
+      "name": "Admin - Leads",
+      "description": "Admin lead management"
+    },
+    {
+      "name": "Locations",
+      "description": "Location catalog"
+    },
+    {
+      "name": "Media",
+      "description": "Media proxy utilities"
+    },
+    {
+      "name": "Page Content",
+      "description": "CMS page content endpoints"
+    },
+    {
+      "name": "Tracking",
+      "description": "Performance tracking events"
+    },
+    {
+      "name": "Analytics",
+      "description": "Analytics dashboards"
+    },
+    {
+      "name": "Admin - Subcategories",
+      "description": "Subcategory CRUD"
+    },
+    {
+      "name": "Admin - Locations",
+      "description": "Location management"
+    },
+    {
+      "name": "Admin - Inbox",
+      "description": "Inbox and lead messages"
+    },
+    {
+      "name": "Admin - Journal",
+      "description": "Journal management"
+    },
+    {
+      "name": "Admin - Pages",
+      "description": "Static page management"
+    },
+    {
+      "name": "Admin - Settings",
+      "description": "Admin account and site settings"
+    },
+    {
+      "name": "Admin - Page Content",
+      "description": "Page content CMS"
+    },
+    {
+      "name": "Admin - Analytics",
+      "description": "Rich analytics data"
+    }
   ],
   "components": {
     "securitySchemes": {
@@ -40,53 +125,596 @@
       "JournalPost": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "title": { "type": "string" },
-          "slug": { "type": "string" },
-          "excerpt": { "type": "string" },
-          "content": { "type": "string" },
-          "cover_image": { "type": "string", "nullable": true },
-          "og_image": { "type": "string", "nullable": true },
-          "category": { "type": "string" },
-          "tags": { "type": "array", "items": { "type": "string" } },
-          "reading_time": { "type": "integer" },
-          "published_at": { "type": "string", "format": "date-time", "nullable": true },
-          "created_at": { "type": "string", "format": "date-time", "nullable": true }
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "cover_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "og_image": {
+            "type": "string",
+            "nullable": true
+          },
+          "category": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reading_time": {
+            "type": "integer"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
         }
       },
       "Perk": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer", "example": 1 },
-          "title": { "type": "string", "example": "AWS Credits - $1,000 Free" },
-          "slug": { "type": "string", "example": "aws-credits-1000-free" },
-          "short_description": { "type": "string" },
-          "partner_name": { "type": "string", "example": "Amazon Web Services" },
-          "partner_logo": { "type": "string", "nullable": true },
-          "redeem_type": { "type": "string", "enum": ["external_link", "coupon_code", "lead_form"] },
-          "is_featured": { "type": "boolean" },
-          "is_valid": { "type": "boolean" },
-          "published_at": { "type": "string", "format": "date-time" }
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "AWS Credits - $1,000 Free"
+          },
+          "slug": {
+            "type": "string",
+            "example": "aws-credits-1000-free"
+          },
+          "short_description": {
+            "type": "string"
+          },
+          "partner_name": {
+            "type": "string",
+            "example": "Amazon Web Services"
+          },
+          "partner_logo": {
+            "type": "string",
+            "nullable": true
+          },
+          "redeem_type": {
+            "type": "string",
+            "enum": [
+              "external_link",
+              "coupon_code",
+              "lead_form"
+            ]
+          },
+          "is_featured": {
+            "type": "boolean"
+          },
+          "is_valid": {
+            "type": "boolean"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "Category": {
         "type": "object",
         "properties": {
-          "id": { "type": "integer" },
-          "name": { "type": "string" },
-          "slug": { "type": "string" },
-          "description": { "type": "string" },
-          "icon": { "type": "string" },
-          "is_active": { "type": "boolean" },
-          "perks_count": { "type": "integer" }
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "perks_count": {
+            "type": "integer"
+          }
         }
       },
       "Error": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean", "example": false },
-          "message": { "type": "string" },
-          "errors": { "type": "object" }
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "object"
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Subcategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "integer"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageContentSection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "page_name": {
+            "type": "string"
+          },
+          "section_key": {
+            "type": "string"
+          },
+          "section_type": {
+            "type": "string"
+          },
+          "section_title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "image_url": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "display_order": {
+            "type": "integer"
+          }
+        }
+      },
+      "TrackingPayload": {
+        "type": "object",
+        "required": [
+          "perk_id"
+        ],
+        "properties": {
+          "perk_id": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ForgotPasswordRequest": {
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "ResetPasswordRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "token",
+          "password",
+          "password_confirmation"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "token": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "password_confirmation": {
+            "type": "string"
+          }
+        }
+      },
+      "PerkBulkUpdateRequest": {
+        "type": "object",
+        "required": [
+          "perk_ids",
+          "action"
+        ],
+        "properties": {
+          "perk_ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "publish",
+              "unpublish",
+              "activate",
+              "deactivate",
+              "delete"
+            ]
+          }
+        }
+      },
+      "InboxBulkAction": {
+        "type": "object",
+        "required": [
+          "ids"
+        ],
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "AdminCategoryRequest": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "icon": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AdminSubcategoryRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "category_id"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "integer"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AdminLocationRequest": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AdminChangePasswordRequest": {
+        "type": "object",
+        "required": [
+          "current_password",
+          "new_password",
+          "new_password_confirmation"
+        ],
+        "properties": {
+          "current_password": {
+            "type": "string"
+          },
+          "new_password": {
+            "type": "string"
+          },
+          "new_password_confirmation": {
+            "type": "string"
+          }
+        }
+      },
+      "AdminChangeEmailRequest": {
+        "type": "object",
+        "required": [
+          "current_password",
+          "new_email"
+        ],
+        "properties": {
+          "current_password": {
+            "type": "string"
+          },
+          "new_email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "SettingUpdateRequest": {
+        "type": "object",
+        "required": [
+          "settings"
+        ],
+        "properties": {
+          "settings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "value"
+              ],
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "PageContentUpdateRequest": {
+        "type": "object",
+        "required": [
+          "page_name",
+          "section_type",
+          "section_key"
+        ],
+        "properties": {
+          "page_name": {
+            "type": "string"
+          },
+          "section_type": {
+            "type": "string"
+          },
+          "section_key": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "meta_title": {
+            "type": "string"
+          },
+          "meta_description": {
+            "type": "string"
+          },
+          "meta_keywords": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
+          },
+          "display_order": {
+            "type": "integer"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageContentBulkUpdateRequest": {
+        "type": "object",
+        "required": [
+          "sections"
+        ],
+        "properties": {
+          "sections": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "page_name",
+                "section_type",
+                "section_key"
+              ],
+              "properties": {
+                "page_name": {
+                  "type": "string"
+                },
+                "section_type": {
+                  "type": "string"
+                },
+                "section_key": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "subtitle": {
+                  "type": "string"
+                },
+                "meta_title": {
+                  "type": "string"
+                },
+                "meta_description": {
+                  "type": "string"
+                },
+                "meta_keywords": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "image_url": {
+                  "type": "string"
+                },
+                "display_order": {
+                  "type": "integer"
+                },
+                "is_active": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      },
+      "PageContentImageUploadRequest": {
+        "type": "object",
+        "required": [
+          "section_key",
+          "image"
+        ],
+        "properties": {
+          "section_key": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "StaticPage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "excerpt": {
+            "type": "string"
+          },
+          "meta_title": {
+            "type": "string"
+          },
+          "meta_description": {
+            "type": "string"
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "InboxMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "is_read": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       }
     }
@@ -94,10 +722,19 @@
   "paths": {
     "/journal": {
       "get": {
-        "tags": ["Journal"],
+        "tags": [
+          "Journal"
+        ],
         "summary": "List journal posts",
         "parameters": [
-          { "name": "category", "in": "query", "schema": { "type": "string" }, "description": "Filter by category" }
+          {
+            "name": "category",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by category"
+          }
         ],
         "responses": {
           "200": {
@@ -107,10 +744,29 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/JournalPost" } },
-                    "categories": { "type": "array", "items": { "type": "string" } },
-                    "current": { "type": "object", "properties": { "category": { "type": "string" } } }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/JournalPost"
+                      }
+                    },
+                    "categories": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "current": {
+                      "type": "object",
+                      "properties": {
+                        "category": {
+                          "type": "string"
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -121,29 +777,96 @@
     },
     "/journal/{slug}": {
       "get": {
-        "tags": ["Journal"],
+        "tags": [
+          "Journal"
+        ],
         "summary": "Get journal post by slug",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Successful response" },
-          "404": { "description": "Not found" }
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Not found"
+          }
         }
       }
     },
     "/perks": {
       "get": {
-        "tags": ["Perks"],
+        "tags": [
+          "Perks"
+        ],
         "summary": "List all perks",
         "description": "Get paginated list of perks with optional filters",
         "parameters": [
-          { "name": "category", "in": "query", "description": "Filter by category slug", "schema": { "type": "string" } },
-          { "name": "subcategory_id", "in": "query", "description": "Filter by subcategory ID", "schema": { "type": "integer" } },
-          { "name": "search", "in": "query", "description": "Full-text search", "schema": { "type": "string" } },
-          { "name": "featured", "in": "query", "description": "Filter featured perks", "schema": { "type": "string", "enum": ["true", "false"] } },
-          { "name": "sort_by", "in": "query", "description": "Sort field", "schema": { "type": "string", "enum": ["published_at", "popular", "newest"] } },
-          { "name": "per_page", "in": "query", "description": "Items per page", "schema": { "type": "integer", "default": 12 } }
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter by category slug",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subcategory_id",
+            "in": "query",
+            "description": "Filter by subcategory ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Full-text search",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "description": "Filter featured perks",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "true",
+                "false"
+              ]
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "description": "Sort field",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "published_at",
+                "popular",
+                "newest"
+              ]
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Items per page",
+            "schema": {
+              "type": "integer",
+              "default": 12
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -153,15 +876,31 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean", "example": true },
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Perk" } },
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Perk"
+                      }
+                    },
                     "meta": {
                       "type": "object",
                       "properties": {
-                        "current_page": { "type": "integer" },
-                        "last_page": { "type": "integer" },
-                        "per_page": { "type": "integer" },
-                        "total": { "type": "integer" }
+                        "current_page": {
+                          "type": "integer"
+                        },
+                        "last_page": {
+                          "type": "integer"
+                        },
+                        "per_page": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
                       }
                     }
                   }
@@ -174,32 +913,58 @@
     },
     "/perks/{slug}": {
       "get": {
-        "tags": ["Perks"],
+        "tags": [
+          "Perks"
+        ],
         "summary": "Get perk by slug",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Successful response" },
-          "404": { "description": "Perk not found" }
+          "200": {
+            "description": "Successful response"
+          },
+          "404": {
+            "description": "Perk not found"
+          }
         }
       }
     },
     "/perks/{slug}/view": {
       "post": {
-        "tags": ["Perks"],
+        "tags": [
+          "Perks"
+        ],
         "summary": "Increment perk view count",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "View counted" }
+          "200": {
+            "description": "View counted"
+          }
         }
       }
     },
     "/categories": {
       "get": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "summary": "List all categories",
         "responses": {
           "200": {
@@ -209,8 +974,15 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Category" } }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    }
                   }
                 }
               }
@@ -221,49 +993,81 @@
     },
     "/categories/{slug}": {
       "get": {
-        "tags": ["Categories"],
+        "tags": [
+          "Categories"
+        ],
         "summary": "Get category by slug",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Successful response" }
+          "200": {
+            "description": "Successful response"
+          }
         }
       }
     },
     "/pages": {
       "get": {
-        "tags": ["Static Pages"],
+        "tags": [
+          "Static Pages"
+        ],
         "summary": "List all static pages",
         "responses": {
-          "200": { "description": "Successful response" }
+          "200": {
+            "description": "Successful response"
+          }
         }
       }
     },
     "/pages/{slug}": {
       "get": {
-        "tags": ["Static Pages"],
+        "tags": [
+          "Static Pages"
+        ],
         "summary": "Get page by slug",
         "parameters": [
-          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Successful response" }
+          "200": {
+            "description": "Successful response"
+          }
         }
       }
     },
     "/settings": {
       "get": {
-        "tags": ["Settings"],
+        "tags": [
+          "Settings"
+        ],
         "summary": "Get site settings",
         "responses": {
-          "200": { "description": "Successful response" }
+          "200": {
+            "description": "Successful response"
+          }
         }
       }
     },
     "/leads/perk-claim": {
       "post": {
-        "tags": ["Leads"],
+        "tags": [
+          "Leads"
+        ],
         "summary": "Submit perk claim form",
         "requestBody": {
           "required": true,
@@ -271,27 +1075,48 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["perk_id", "name", "email"],
+                "required": [
+                  "perk_id",
+                  "name",
+                  "email"
+                ],
                 "properties": {
-                  "perk_id": { "type": "integer" },
-                  "name": { "type": "string" },
-                  "email": { "type": "string", "format": "email" },
-                  "phone": { "type": "string" },
-                  "company": { "type": "string" },
-                  "message": { "type": "string" }
+                  "perk_id": {
+                    "type": "integer"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "company": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Lead created successfully" }
+          "201": {
+            "description": "Lead created successfully"
+          }
         }
       }
     },
     "/leads/partner-inquiry": {
       "post": {
-        "tags": ["Leads"],
+        "tags": [
+          "Leads"
+        ],
         "summary": "Submit partner inquiry form",
         "requestBody": {
           "required": true,
@@ -299,26 +1124,44 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "company"],
+                "required": [
+                  "name",
+                  "email",
+                  "company"
+                ],
                 "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string" },
-                  "phone": { "type": "string" },
-                  "company": { "type": "string" },
-                  "message": { "type": "string" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "company": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Lead created successfully" }
+          "201": {
+            "description": "Lead created successfully"
+          }
         }
       }
     },
     "/leads/contact": {
       "post": {
-        "tags": ["Leads"],
+        "tags": [
+          "Leads"
+        ],
         "summary": "Submit contact form",
         "requestBody": {
           "required": true,
@@ -326,25 +1169,41 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email", "message"],
+                "required": [
+                  "name",
+                  "email",
+                  "message"
+                ],
                 "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string" },
-                  "subject": { "type": "string" },
-                  "message": { "type": "string" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Lead created successfully" }
+          "201": {
+            "description": "Lead created successfully"
+          }
         }
       }
     },
     "/auth/login": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Login user",
         "requestBody": {
           "required": true,
@@ -352,10 +1211,21 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
+                "required": [
+                  "email",
+                  "password"
+                ],
                 "properties": {
-                  "email": { "type": "string", "format": "email", "example": "admin@perkpal.com" },
-                  "password": { "type": "string", "format": "password", "example": "password" }
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "admin@perkpal.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "example": "password"
+                  }
                 }
               }
             }
@@ -369,21 +1239,35 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
                         "user": {
                           "type": "object",
                           "properties": {
-                            "id": { "type": "integer" },
-                            "name": { "type": "string" },
-                            "email": { "type": "string" },
-                            "role": { "type": "string" }
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            }
                           }
                         },
-                        "token": { "type": "string" }
+                        "token": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
@@ -396,159 +1280,2165 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Logout user",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
-          "200": { "description": "Logout successful" }
+          "200": {
+            "description": "Logout successful"
+          }
         }
       }
     },
     "/auth/me": {
       "get": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Get current user",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
-          "200": { "description": "User data" }
+          "200": {
+            "description": "User data"
+          }
         }
       }
     },
     "/admin/dashboard": {
       "get": {
-        "tags": ["Admin - Dashboard"],
+        "tags": [
+          "Admin - Dashboard"
+        ],
         "summary": "Get dashboard statistics",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
-          "200": { "description": "Dashboard data" }
+          "200": {
+            "description": "Dashboard data"
+          }
         }
       }
     },
     "/admin/perks": {
       "get": {
-        "tags": ["Admin - Perks"],
+        "tags": [
+          "Admin - Perks"
+        ],
         "summary": "List perks (admin)",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "status", "in": "query", "schema": { "type": "string" } },
-          { "name": "category_id", "in": "query", "schema": { "type": "integer" } },
-          { "name": "search", "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Perks list" }
+          "200": {
+            "description": "Perks list"
+          }
         }
       },
       "post": {
-        "tags": ["Admin - Perks"],
+        "tags": [
+          "Admin - Perks"
+        ],
         "summary": "Create new perk",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["category_id", "title", "redeem_type"],
+                "required": [
+                  "category_id",
+                  "title",
+                  "redeem_type"
+                ],
                 "properties": {
-                  "category_id": { "type": "integer" },
-                  "subcategory_id": { "type": "integer" },
-                  "title": { "type": "string" },
-                  "description": { "type": "string" },
-                  "short_description": { "type": "string" },
-                  "partner_name": { "type": "string" },
-                  "redeem_type": { "type": "string", "enum": ["external_link", "coupon_code", "lead_form"] },
-                  "coupon_code": { "type": "string" },
-                  "external_url": { "type": "string" }
+                  "category_id": {
+                    "type": "integer"
+                  },
+                  "subcategory_id": {
+                    "type": "integer"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "short_description": {
+                    "type": "string"
+                  },
+                  "partner_name": {
+                    "type": "string"
+                  },
+                  "redeem_type": {
+                    "type": "string",
+                    "enum": [
+                      "external_link",
+                      "coupon_code",
+                      "lead_form"
+                    ]
+                  },
+                  "coupon_code": {
+                    "type": "string"
+                  },
+                  "external_url": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Perk created" }
+          "201": {
+            "description": "Perk created"
+          }
         }
       }
     },
     "/admin/perks/{id}": {
       "get": {
-        "tags": ["Admin - Perks"],
+        "tags": [
+          "Admin - Perks"
+        ],
         "summary": "Get perk by ID",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Perk data" }
+          "200": {
+            "description": "Perk data"
+          }
         }
       },
       "put": {
-        "tags": ["Admin - Perks"],
+        "tags": [
+          "Admin - Perks"
+        ],
         "summary": "Update perk",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Perk updated" }
+          "200": {
+            "description": "Perk updated"
+          }
         }
       },
       "delete": {
-        "tags": ["Admin - Perks"],
+        "tags": [
+          "Admin - Perks"
+        ],
         "summary": "Delete perk",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Perk deleted" }
+          "200": {
+            "description": "Perk deleted"
+          }
         }
       }
     },
     "/admin/categories": {
       "get": {
-        "tags": ["Admin - Categories"],
+        "tags": [
+          "Admin - Categories"
+        ],
         "summary": "List categories (admin)",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
-          "200": { "description": "Categories list" }
+          "200": {
+            "description": "Categories list"
+          }
         }
       },
       "post": {
-        "tags": ["Admin - Categories"],
+        "tags": [
+          "Admin - Categories"
+        ],
         "summary": "Create category",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name"],
+                "required": [
+                  "name"
+                ],
                 "properties": {
-                  "name": { "type": "string" },
-                  "description": { "type": "string" },
-                  "icon": { "type": "string" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Category created" }
+          "201": {
+            "description": "Category created"
+          }
         }
       }
     },
     "/admin/leads": {
       "get": {
-        "tags": ["Admin - Leads"],
+        "tags": [
+          "Admin - Leads"
+        ],
         "summary": "List leads",
-        "security": [{ "bearerAuth": [] }],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
-          { "name": "lead_type", "in": "query", "schema": { "type": "string" } },
-          { "name": "search", "in": "query", "schema": { "type": "string" } }
+          {
+            "name": "lead_type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Leads list" }
+          "200": {
+            "description": "Leads list"
+          }
+        }
+      }
+    },
+    "/locations": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "List active locations",
+        "responses": {
+          "200": {
+            "description": "List of enabled locations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Location"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/media/proxy": {
+      "get": {
+        "tags": [
+          "Media"
+        ],
+        "summary": "Proxy remote media URLs",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "Remote media URL to proxy"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proxied media response"
+          }
+        }
+      }
+    },
+    "/page-content/{pageName}": {
+      "get": {
+        "tags": [
+          "Page Content"
+        ],
+        "summary": "Retrieve page content tree",
+        "parameters": [
+          {
+            "name": "pageName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Slug of the page"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page content segments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/page-content/section/{sectionKey}": {
+      "get": {
+        "tags": [
+          "Page Content"
+        ],
+        "summary": "Retrieve a single page section",
+        "parameters": [
+          {
+            "name": "sectionKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Identifier of the section"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Section details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/PageContentSection"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Section not found"
+          }
+        }
+      }
+    },
+    "/track/impression": {
+      "post": {
+        "tags": [
+          "Tracking"
+        ],
+        "summary": "Track perk impression",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrackingPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Perk impression recorded"
+          }
+        }
+      }
+    },
+    "/track/click": {
+      "post": {
+        "tags": [
+          "Tracking"
+        ],
+        "summary": "Track perk click",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrackingPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Perk click recorded"
+          }
+        }
+      }
+    },
+    "/track/form-submission": {
+      "post": {
+        "tags": [
+          "Tracking"
+        ],
+        "summary": "Track lead form submission",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrackingPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Form submission recorded"
+          }
+        }
+      }
+    },
+    "/track/affiliate-click": {
+      "post": {
+        "tags": [
+          "Tracking"
+        ],
+        "summary": "Track affiliate click",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrackingPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Affiliate click recorded"
+          }
+        }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Request password reset link",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset instructions sent"
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Reset password using token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password has been reset"
+          }
+        }
+      }
+    },
+    "/admin/chart-data": {
+      "get": {
+        "tags": [
+          "Admin - Dashboard"
+        ],
+        "summary": "Dashboard chart data",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "range",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "30"
+            },
+            "description": "Date range in days"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Chart data payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/perks/{id}/publish": {
+      "post": {
+        "tags": [
+          "Admin - Perks"
+        ],
+        "summary": "Publish a perk",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perk published successfully"
+          }
+        }
+      }
+    },
+    "/admin/perks/bulk-update": {
+      "post": {
+        "tags": [
+          "Admin - Perks"
+        ],
+        "summary": "Perform bulk actions on perks",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PerkBulkUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk action completed"
+          }
+        }
+      }
+    },
+    "/admin/categories/{id}": {
+      "get": {
+        "tags": [
+          "Admin - Categories"
+        ],
+        "summary": "Get category by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin - Categories"
+        ],
+        "summary": "Update a category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminCategoryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Category updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin - Categories"
+        ],
+        "summary": "Delete a category",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted"
+          }
+        }
+      }
+    },
+    "/admin/subcategories": {
+      "get": {
+        "tags": [
+          "Admin - Subcategories"
+        ],
+        "summary": "List subcategories",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "is_active",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Filter by active flag"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subcategory list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Subcategory"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin - Subcategories"
+        ],
+        "summary": "Create a new subcategory",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminSubcategoryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Subcategory created"
+          }
+        }
+      }
+    },
+    "/admin/subcategories/{id}": {
+      "get": {
+        "tags": [
+          "Admin - Subcategories"
+        ],
+        "summary": "Get subcategory by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subcategory detail"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin - Subcategories"
+        ],
+        "summary": "Update a subcategory",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminSubcategoryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Subcategory updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin - Subcategories"
+        ],
+        "summary": "Delete a subcategory",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subcategory deleted"
+          }
+        }
+      }
+    },
+    "/admin/locations": {
+      "get": {
+        "tags": [
+          "Admin - Locations"
+        ],
+        "summary": "List all locations",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Locations list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Location"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin - Locations"
+        ],
+        "summary": "Create a location",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminLocationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Location created"
+          }
+        }
+      }
+    },
+    "/admin/locations/{id}": {
+      "get": {
+        "tags": [
+          "Admin - Locations"
+        ],
+        "summary": "Get location by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Location detail"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin - Locations"
+        ],
+        "summary": "Update a location",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminLocationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Location updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin - Locations"
+        ],
+        "summary": "Delete a location",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Location removed"
+          }
+        }
+      }
+    },
+    "/admin/leads/export": {
+      "get": {
+        "tags": [
+          "Admin - Leads"
+        ],
+        "summary": "Export leads CSV",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "lead_type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CSV download",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/leads/{id}": {
+      "get": {
+        "tags": [
+          "Admin - Leads"
+        ],
+        "summary": "Get lead detail",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lead data"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin - Leads"
+        ],
+        "summary": "Delete a lead",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lead deleted"
+          }
+        }
+      }
+    },
+    "/admin/inbox": {
+      "get": {
+        "tags": [
+          "Admin - Inbox"
+        ],
+        "summary": "List inbox messages",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "is_read",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date_from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "date_to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated inbox list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/InboxMessage"
+                      }
+                    },
+                    "meta": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/inbox/{id}": {
+      "get": {
+        "tags": [
+          "Admin - Inbox"
+        ],
+        "summary": "Get inbox message",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inbox message detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InboxMessage"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin - Inbox"
+        ],
+        "summary": "Delete an inbox message",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message deleted"
+          }
+        }
+      }
+    },
+    "/admin/inbox/{id}/mark-read": {
+      "post": {
+        "tags": [
+          "Admin - Inbox"
+        ],
+        "summary": "Mark message as read",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Marked as read"
+          }
+        }
+      }
+    },
+    "/admin/inbox/{id}/mark-unread": {
+      "post": {
+        "tags": [
+          "Admin - Inbox"
+        ],
+        "summary": "Mark message as unread",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Marked as unread"
+          }
+        }
+      }
+    },
+    "/admin/inbox/bulk-mark-read": {
+      "post": {
+        "tags": [
+          "Admin - Inbox"
+        ],
+        "summary": "Bulk mark inbox messages as read",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InboxBulkAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk mark complete"
+          }
+        }
+      }
+    },
+    "/admin/inbox/bulk-delete": {
+      "post": {
+        "tags": [
+          "Admin - Inbox"
+        ],
+        "summary": "Bulk delete inbox messages",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InboxBulkAction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bulk delete complete"
+          }
+        }
+      }
+    },
+    "/admin/journal": {
+      "get": {
+        "tags": [
+          "Admin - Journal"
+        ],
+        "summary": "List journal posts",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Journal list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin - Journal"
+        ],
+        "summary": "Create journal post",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "slug": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "excerpt": {
+                    "type": "string"
+                  },
+                  "category_id": {
+                    "type": "integer"
+                  },
+                  "tags": {
+                    "type": "string"
+                  },
+                  "cover_image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "og_image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "author_avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "is_published": {
+                    "type": "boolean"
+                  },
+                  "published_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Journal post created"
+          }
+        }
+      }
+    },
+    "/admin/journal/{id}": {
+      "get": {
+        "tags": [
+          "Admin - Journal"
+        ],
+        "summary": "Get journal post",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Journal post fetched"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin - Journal"
+        ],
+        "summary": "Update journal post",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Journal post updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin - Journal"
+        ],
+        "summary": "Delete journal post",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Journal post deleted"
+          }
+        }
+      }
+    },
+    "/admin/pages": {
+      "get": {
+        "tags": [
+          "Admin - Pages"
+        ],
+        "summary": "List static pages",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Static pages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/StaticPage"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin - Pages"
+        ],
+        "summary": "Create a static page",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StaticPage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Page created"
+          }
+        }
+      }
+    },
+    "/admin/pages/{id}": {
+      "get": {
+        "tags": [
+          "Admin - Pages"
+        ],
+        "summary": "Get static page",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page detail"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Admin - Pages"
+        ],
+        "summary": "Update static page",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StaticPage"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Page updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Admin - Pages"
+        ],
+        "summary": "Delete static page",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page deleted"
+          }
+        }
+      }
+    },
+    "/admin/settings": {
+      "get": {
+        "tags": [
+          "Admin - Settings"
+        ],
+        "summary": "Get site settings",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Settings list"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin - Settings"
+        ],
+        "summary": "Update grouped settings",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Settings updated"
+          }
+        }
+      }
+    },
+    "/admin/settings/change-password": {
+      "post": {
+        "tags": [
+          "Admin - Settings"
+        ],
+        "summary": "Change admin password",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminChangePasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password changed"
+          }
+        }
+      }
+    },
+    "/admin/settings/change-email": {
+      "post": {
+        "tags": [
+          "Admin - Settings"
+        ],
+        "summary": "Change admin email",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminChangeEmailRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email changed"
+          }
+        }
+      }
+    },
+    "/admin/page-content": {
+      "get": {
+        "tags": [
+          "Admin - Page Content"
+        ],
+        "summary": "List all page content entries",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Content list"
+          }
+        }
+      }
+    },
+    "/admin/page-content/pages": {
+      "get": {
+        "tags": [
+          "Admin - Page Content"
+        ],
+        "summary": "Get available pages and sections",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page structure"
+          }
+        }
+      }
+    },
+    "/admin/page-content/{pageName}": {
+      "get": {
+        "tags": [
+          "Admin - Page Content"
+        ],
+        "summary": "Get page content",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "pageName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Page content retrieved"
+          }
+        }
+      }
+    },
+    "/admin/page-content/update": {
+      "post": {
+        "tags": [
+          "Admin - Page Content"
+        ],
+        "summary": "Update a single section",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageContentUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Section updated"
+          }
+        }
+      }
+    },
+    "/admin/page-content/bulk-update": {
+      "post": {
+        "tags": [
+          "Admin - Page Content"
+        ],
+        "summary": "Bulk update page sections",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PageContentBulkUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sections updated"
+          }
+        }
+      }
+    },
+    "/admin/page-content/upload-image": {
+      "post": {
+        "tags": [
+          "Admin - Page Content"
+        ],
+        "summary": "Upload image for page content",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/PageContentImageUploadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Image uploaded"
+          }
+        }
+      }
+    },
+    "/admin/page-content/{id}": {
+      "delete": {
+        "tags": [
+          "Admin - Page Content"
+        ],
+        "summary": "Delete a page content section",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Section deleted"
+          }
+        }
+      }
+    },
+    "/admin/analytics/dashboard": {
+      "get": {
+        "tags": [
+          "Admin - Analytics"
+        ],
+        "summary": "Get analytics dashboard stats",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "range",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "30"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Analytics data"
+          }
+        }
+      }
+    },
+    "/admin/analytics/perk/{perkId}": {
+      "get": {
+        "tags": [
+          "Admin - Analytics"
+        ],
+        "summary": "Get analytics for a perk",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "perkId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "range",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "30"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perk analytics"
+          }
         }
       }
     }
